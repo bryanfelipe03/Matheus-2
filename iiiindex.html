@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerFit Personal - Transforme Seu Corpo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .before-after-img {
+            transition: all 0.3s ease;
+        }
+        
+        .before-after-img:hover {
+            transform: scale(1.05);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+        }
+        
+        .modal-content {
+            position: relative;
+            margin: 10% auto;
+            width: 80%;
+            max-width: 700px;
+            animation: zoomIn 0.4s;
+        }
+        
+        @keyframes zoomIn {
+            from {transform: scale(0.1); opacity: 0;}
+            to {transform: scale(1); opacity: 1;}
+        }
+        
+        .close {
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            color: white;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .fade-in {
+            animation: fadeIn 1s;
+        }
+        
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+        
+        .slide-up {
+            animation: slideUp 0.8s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {transform: translateY(100px); opacity: 0;}
+            to {transform: translateY(0); opacity: 1;}
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {transform: scale(1);}
+            50% {transform: scale(1.05);}
+            100% {transform: scale(1);}
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% {transform: translateY(0px);}
+            50% {transform: translateY(-15px);}
+            100% {transform: translateY(0px);}
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Header/Navbar -->
+    <header class="fixed w-full z-50 bg-gradient-to-r from-orange-500 via-purple-600 to-blue-600">
+        <nav class="container mx-auto px-6 py-3">
+            <div class="flex justify-between items-center">
+                <div>
+                    <a href="#" class="text-white text-2xl font-bold md:text-3xl hover:text-purple-200 transition">Power<span class="text-orange-300">Fit</span></a>
+                </div>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-white hover:text-orange-300 transition">Início</a>
+                    <a href="#about" class="text-white hover:text-purple-300 transition">Sobre</a>
+                    <a href="#consulting" class="text-white hover:text-blue-300 transition">Consultoria</a>
+                    <a href="#results" class="text-white hover:text-orange-300 transition">Resultados</a>
+                    <a href="#contact" class="text-white hover:text-purple-300 transition">Contato</a>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button class="outline-none mobile-menu-button">
+                        <svg class="w-6 h-6 text-white hover:text-orange-300"
+                            x-show="!showMenu"
+                            fill="none"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div class="hidden mobile-menu">
+                <ul class="mt-4 space-y-4">
+                    <li><a href="#home" class="block text-white hover:text-orange-300">Início</a></li>
+                    <li><a href="#about" class="block text-white hover:text-purple-300">Sobre</a></li>
+                    <li><a href="#consulting" class="block text-white hover:text-blue-300">Consultoria</a></li>
+                    <li><a href="#results" class="block text-white hover:text-orange-300">Resultados</a></li>
+                    <li><a href="#contact" class="block text-white hover:text-purple-300">Contato</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+        <div class="container mx-auto px-6 text-center fade-in">
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 slide-up">TRANSFORME SUA VIDA <span class="text-orange-400">COMIGO</span></h1>
+            <p class="text-xl md:text-2xl text-white mb-10 max-w-2xl mx-auto slide-up">Alcance seu corpo dos sonhos com treinos personalizados e acompanhamento profissional</p>
+            <div class="flex justify-center gap-4 flex-wrap slide-up">
+                <a href="#consulting" class="pulse bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105">
+                    AGENDE SUA CONSULTORIA
+                </a>
+            </div>
+        </div>
+        <div class="absolute bottom-10 left-0 right-0 flex justify-center">
+            <a href="#about" class="text-white animate-bounce">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gradient-to-b from-white to-gray-100">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-gray-800">SOBRE <span class="text-orange-500">MIM</span></h2>
+            
+            <div class="flex flex-col md:flex-row items-center gap-12 max-w-6xl mx-auto">
+                <div class="md:w-1/2 relative floating">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Personal Trainer" class="rounded-lg shadow-2xl w-full h-auto max-w-md mx-auto">
+                        <div class="absolute -bottom-5 -right-5 bg-orange-500 text-white py-3 px-6 rounded-lg shadow-lg">
+                            <span class="text-2xl font-bold">+10</span>
+                            <p class="text-sm">anos de experiência</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Matheus</h3>
+                    <h4 class="text-lg text-purple-600 mb-6">Personal Trainer & Coach de Performance</h4>
+                    
+                    <p class="text-gray-700 mb-4">Sou especialista em transformação corporal e performance esportiva, com mais de 10 anos de experiência ajudando pessoas a alcançarem seus objetivos físicos e melhorarem sua qualidade de vida.</p>
+                    
+                    <p class="text-gray-700 mb-6">Minha metodologia combina ciência do exercício, nutrição estratégica e acompanhamento psicológico para garantir resultados consistentes e sustentáveis.</p>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 bg-blue-100 rounded-full p-2 mr-4">
+                                <i class="fas fa-dumbbell text-blue-600"></i>
+                            </div>
+                            <p class="text-gray-700">Especializado em emagrecimento, hipertrofia e condicionamento físico</p>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 bg-purple-100 rounded-full p-2 mr-4">
+                                <i class="fas fa-graduation-cap text-purple-600"></i>
+                            </div>
+                            <p class="text-gray-700">Formado em Educação Física pela USP, com pós-graduação em Fisiologia do Exercício</p>
+                        </div>
+                        
+                      
+                    </div>
+                    
+                    <a href="#consulting" class="mt-8 inline-block bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105">
+                        Conheça meus planos
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Consulting Section -->
+    <section id="consulting" class="py-20 bg-gradient-to-b from-purple-50 to-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-gray-800">CONSULTORIAS <span class="text-blue-600">DISponíveis</span></h2>
+            
+            <div class="grid md:grid-cols-2 gap-10 max-w-6xl mx-auto">
+                <!-- Online Consulting -->
+                <div class="bg-white rounded-xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2">
+                    <div class="relative h-48 bg-gradient-to-r from-blue-500 to-blue-700 flex items-center justify-center">
+                        <i class="fas fa-laptop text-white text-7xl opacity-30"></i>
+                        <h3 class="absolute text-2xl font-bold text-white">CONSULTORIA ONLINE</h3>
+                    </div>
+                    
+                    <div class="p-8">
+                        <ul class="space-y-3 mb-6 text-gray-700">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Treinos personalizados de acordo com seu biótipo e objetivos</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Acompanhamento semanal via aplicativo</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Atualização periódica do treino conforme sua evolução</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Orientação nutricional básica</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Suporte via WhatsApp para dúvidas</span>
+                            </li>
+                        </ul>
+                        
+                        <div class="text-center mb-6">
+                            <div class="text-sm text-gray-500">A PARTIR DE</div>
+                            <div class="text-4xl font-bold text-blue-600">R$ 199<span class="text-lg">/mês</span></div>
+                        </div>
+                        
+                        <button onclick="openWhatsApp('online')" class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+                            QUERO ASSINAR <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Presencial Consulting -->
+                <div class="bg-white rounded-xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2">
+                    <div class="relative h-48 bg-gradient-to-r from-orange-500 to-orange-600 flex items-center justify-center">
+                        <i class="fas fa-dumbbell text-white text-7xl opacity-30"></i>
+                        <h3 class="absolute text-2xl font-bold text-white">TREINO PRESENCIAL</h3>
+                    </div>
+                    
+                    <div class="p-8">
+                        <ul class="space-y-3 mb-6 text-gray-700">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Treinos personalizados individuais ou em pequenos grupos</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Acompanhamento em tempo real e correção de execução</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Planilha de evolução personalizada</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Avaliação física completa mensal</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Suporte nutricional completo</span>
+                            </li>
+                        </ul>
+                        
+                        <div class="text-center mb-6">
+                            <div class="text-sm text-gray-500">A PARTIR DE</div>
+                            <div class="text-4xl font-bold text-orange-600">R$ 399<span class="text-lg">/mês</span></div>
+                        </div>
+                        
+                        <button onclick="openWhatsApp('presencial')" class="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+                            QUERO TREINAR <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-gray-800">FEEDBACK DOS <span class="text-purple-600">ALUNOS</span></h2>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Testimonial 1 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl transform hover:scale-105">
+                    <div class="flex items-center mb-4">
+                        <div class="h-12 w-12 rounded-full bg-purple-100 flex items-center justify-center">
+                            <i class="fas fa-user text-purple-600"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-bold">Ana Clara</h4>
+                            <div class="flex text-yellow-400 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic">"Em 3 meses com o Gabriel, consegui perder 12kg e melhorar minha resistência física. Ele me ajudou a criar uma rotina de exercícios que se encaixa na minha vida corrida como médica. Indico para todos!"</p>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl transform hover:scale-105">
+                    <div class="flex items-center mb-4">
+                        <div class="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center">
+                            <i class="fas fa-user text-blue-600"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-bold">Ricardo Santos</h4>
+                            <div class="flex text-yellow-400 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic">"Sempre fui magro e tinha dificuldade para ganhar massa muscular. Em 6 meses com a metodologia do Gabriel, ganhei 8kg de massa magra. Seu conhecimento e motivação fazem toda a diferença!"</p>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl transform hover:scale-105">
+                    <div class="flex items-center mb-4">
+                     <div class="h-12 w-12 rounded-full bg-orange-100 flex items-center justify-center">
+                            <i class="fas fa-user text-orange-600"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-bold">Fernanda Oliveira</h4>
+                            <div class="flex text-yellow-400 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic">"Depois do parto do meu segundo filho estava desanimada com meu corpo. O Gabriel não só me ajudou a recuperar a forma como me ensinou a importância do autocuidado. Super recomendo seu trabalho!"</p>
+                </div>
+                
+                <!-- Testimonial 4 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl transform hover:scale-105">
+                    <div class="flex items-center mb-4">
+                        <div class="h-12 w-12 rounded-full bg-purple-100 flex items-center justify-center">
+                            <i class="fas fa-user text-purple-600"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-bold">Lucas Martins</h4>
+                            <div class="flex text-yellow-400 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic">"Comecei a treinar com o Gabriel para melhorar no futebol. Em poucos meses minha resistência e força aumentaram muito. O atendimento online dele é perfeito para quem tem horários irregulares como eu."</p>
+                </div>
+                
+                <!-- Testimonial 5 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl transform hover:scale-105">
+                    <div class="flex items-center mb-4">
+                        <div class="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center">
+                            <i class="fas fa-user text-blue-600"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-bold">Carla Gomes</h4>
+                            <div class="flex text-yellow-400 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic">"Aos 45 anos achava que meu corpo não iria mudar mais. Com o acompanhamento do Gabriel, mudei minha composição corporal e minha autoestima. Seu método realmente funciona em qualquer idade!"</p>
+                </div>
+                
+                <!-- Testimonial 6 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl transform hover:scale-105">
+                    <div class="flex items-center mb-4">
+                        <div class="flex flex-col items-center justify-center px-2 py-1 bg-gradient-to-r from-orange-500 to-purple-600 text-white rounded-lg">
+                            <i class="fas fa-heart text-xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-purple-600">+150 alunos transformados</h4>
+                            <p class="text-gray-700">Junte-se a eles e conquiste o corpo dos seus sonhos!</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic">"Não perca tempo com métodos genéricos. Com o acompanhamento personalizado do Gabriel você terá resultados reais e sustentáveis."</p>
+                    <a href="#consulting" class="mt-4 inline-block text-purple-600 font-semibold hover:text-purple-800 transition">Quero resultados! →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section id="results" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-gray-800">RESULTADOS <span class="text-orange-500">REAIS</span></h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Result 1 -->
+                <div class="relative rounded-xl overflow-hidden shadow-lg before-after-img cursor-pointer" onclick="openModal('result1')">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Resultado Aluno 1" class="w-full h-64 object-cover transition duration-300 hover:opacity-90">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-0 left-0 p-6 text-white">
+                        <h3 class="text-xl font-bold">Joana Mendes</h3>
+                        <p class="text-sm">32 anos | 8 meses de treino</p>
+                    </div>
+                </div>
+                
+                <!-- Result 2 -->
+                <div class="relative rounded-xl overflow-hidden shadow-lg before-after-img cursor-pointer" onclick="openModal('result2')">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Resultado Aluno 2" class="w-full h-64 object-cover transition duration-300 hover:opacity-90">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-0 left-0 p-6 text-white">
+                        <h3 class="text-xl font-bold">Pedro Henrique</h3>
+                        <p class="text-sm">28 anos | 5 meses de treino</p>
+                    </div>
+                </div>
+                
+                <!-- Result 3 -->
+                <div class="relative rounded-xl overflow-hidden shadow-lg before-after-img cursor-pointer" onclick="openModal('result3')">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Resultado Aluno 3" class="w-full h-64 object-cover transition duration-300 hover:opacity-90">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-0 left-0 p-6 text-white">
+                        <h3 class="text-xl font-bold">Marcela Souza</h3>
+                        <p class="text-sm">40 anos | 10 meses de treino</p>
+                    </div>
+                </div>
+                
+                <!-- Result 4 -->
+                <div class="relative rounded-xl overflow-hidden shadow-lg before-after-img cursor-pointer" onclick="openModal('result4')">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Resultado Aluno 4" class="w-full h-64 object-cover transition duration-300 hover:opacity-90">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-0 left-0 p-6 text-white">
+                        <h3 class="text-xl font-bold">Carlos Eduardo</h3>
+                        <p class="text-sm">35 anos | 6 meses de treino</p>
+                    </div>
+                </div>
+                
+                <!-- Result 5 -->
+                <div class="relative rounded-xl overflow-hidden shadow-lg before-after-img cursor-pointer" onclick="openModal('result5')">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Resultado Aluno 5" class="w-full h-64 object-cover transition duration-300 hover:opacity-90">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-0 left-0 p-6 text-white">
+                        <h3 class="text-xl font-bold">Luana Ferreira</h3>
+                        <p class="text-sm">29 anos | 4 meses de treino</p>
+                    </div>
+                </div>
+                
+                <!-- Call to Action -->
+                <div class="relative rounded-xl overflow-hidden bg-gradient-to-r from-orange-500 to-purple-600 flex items-center justify-center flex-col p-8 text-center text-white shadow-lg transform hover:scale-105 transition duration-300">
+                    <i class="fas fa-trophy text-5xl mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-2">SEJA O PRÓXIMO!</h3>
+                    <p class="mb-6">Transforme seu corpo com nosso método comprovado</p>
+                    <a href="#consulting" class="bg-white text-orange-600 hover:bg-gray-100 font-bold py-2 px-6 rounded-full shadow transition duration-300">
+                        Quero começar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact/Footer Section -->
+    <footer id="contact" class="bg-gradient-to-r from-gray-900 to-gray-800 text-white pt-16 pb-8">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-10 mb-12">
+                <div class="md:col-span-2">
+                    <h3 class="text-2xl font-bold mb-4">Power<span class="text-orange-400">Fit</span></h3>
+                    <p class="mb-4 text-gray-300">Transformando vidas através do exercício físico com metodologia científica e acompanhamento personalizado.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="hover:text-orange-400 transition"><i class="fab fa-instagram text-xl"></i></a>
+                        <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-facebook text-xl"></i></a>
+                        <a href="#" class="hover:text-blue-300 transition"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="#" class="hover:text-green-400 transition"><i class="fab fa-whatsapp text-xl"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Links Rápidos</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-300 hover:text-orange-400 transition">Início</a></li>
+                        <li><a href="#about" class="text-gray-300 hover:text-blue-400 transition">Sobre</a></li>
+                        <li><a href="#consulting" class="text-gray-300 hover:text-purple-400 transition">Consultorias</a></li>
+                        <li><a href="#results" class="text-gray-300 hover:text-orange-400 transition">Resultados</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contato</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt mr-3 text-orange-400"></i>
+                            <span>(11) 98765-4321</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3 text-blue-400"></i>
+                            <span>contato@powerfit.com.br</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-map-marker-alt mr-3 text-purple-400"></i>
+                            <span>São Paulo - SP</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 text-sm mb-4 md:mb-0">© 2023 PowerFit Personal. Todos os direitos reservados.</p>
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-400 hover:text-gray-300 text-sm transition">Termos de Uso</a>
+                        <a href="#" class="text-gray-400 hover:text-gray-300 text-sm transition">Política de Privacidade</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Before/After Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modalContent" class="bg-white rounded-lg overflow-hidden shadow-xl"></div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('slide-up', 'fade-in');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+        
+        // WhatsApp contact function
+        function openWhatsApp(type) {
+            const phoneNumber = '5511987654321';
+            let message = '';
+            
+            if (type === 'online') {
+                message = 'Olá Gabriel! Gostaria de saber mais sobre a Consultoria Online. Pode me enviar mais informações?';
+            } else {
+                message = 'Olá Gabriel! Tenho interesse no Treino Presencial. Pode me informar sobre disponibilidade e valores?';
+            }
+            
+            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+        
+        // Modal functions for before/after images
+        function openModal(resultId) {
+            const modal = document.getElementById('modal');
+            const modalContent = document.getElementById('modalContent');
+            let content = '';
+            
+            switch(resultId) {
+                case 'result1':
+                    content = `
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-6">
+                            <div class="text-center">
+                                <h3 class="text-xl font-bold mb-2 text-gray-800">Joana Mendes - 32 anos</h3>
+                                <p class="text-gray-600 mb-4">8 meses de treino</p>
+                                <div class="mb-4">
+                                    <h4 class="font-semibold text-blue-600">ANTES</h4>
+                                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Antes" class="rounded-lg shadow w-full">
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <div class="h-12"></div>
+                                <div class="mb-4">
+                                    <h4 class="font-semibold text-orange-500">DEPOIS</h4>
+                                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Depois" class="rounded-lg shadow w-full">
+                                </div>
+                            </div>
+                            <div class="md:col-span-2 bg-gray-100 p-4 rounded-lg">
+                                <p class="text-gray-700 italic">"Perdi 15kg e ganhei muita disposição com o treino do Gabriel. Melhorou não só meu corpo mas minha autoestima e saúde!"</p>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'result2':
+                    content = `
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-6">
+                            <div class="text-center">
+                                <h3 class="text-xl font-bold mb-2 text-gray-800">Pedro Henrique - 28 anos</h3>
+                                <p class="text-gray-600 mb-4">5 meses de treino</p>
+                                <div class="mb-4">
+                                    <h4 class="font-semibold text-blue-600">ANTES</h4>
+                                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Antes" class="rounded-lg shadow w-full">
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <div class="h-12"></div>
+                                <div class="mb-4">
+                                    <h4 class="font-semibold text-orange-500">DEPOIS</h4>
+                                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Depois" class="rounded-lg shadow w-full">
+                                </div>
+                            </div>
+                            <div class="md:col-span-2 bg-gray-100 p-4 rounded-lg">
+                                <p class="text-gray-700 italic">"Ganhei 7kg de massa muscular e minha performance no futebol melhorou muito. O Gabriel adaptou o treino exatamente para minhas necessidades!"</p>
+                            </div>
+                        </div>
+                    `;
+                    break;
+             default:
+                    content = `
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-6">
+                            <div class="text-center">
+                                <h3 class="text-xl font-bold mb-2 text-gray-800">Aluno(a)</h3>
+                                <p class="text-gray-600 mb-4">X meses de treino</p>
+                                <div class="mb-4">
+                                    <h4 class="font-semibold text-blue-600">ANTES</h4>
+                                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Antes" class="rounded-lg shadow w-full">
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <div class="h-12"></div>
+                                <div class="mb-4">
+                                    <h4 class="font-semibold text-orange-500">DEPOIS</h4>
+                                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Depois" class="rounded-lg shadow w-full">
+                                </div>
+                            </div>
+                            <div class="md:col-span-2 bg-gray-100 p-4 rounded-lg">
+                                <p class="text-gray-700 italic">"Os resultados do treino personalizado com o Gabriel foram incríveis! Recomendo demais seu trabalho."</p>
+                            </div>
+                        </div>
+                    `;
+            }
+            
+            modalContent.innerHTML = content;
+            modal.style.display = "block";
+        }
+        
+        function closeModal() {
+            document.getElementById('modal').style.display = "none";
+        }
+        
+        // Close modal if clicked outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
